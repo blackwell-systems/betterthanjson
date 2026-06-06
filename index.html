@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GCF: Better Than JSON for AI Agents</title>
+  <meta name="description" content="JSON breaks at 500 records. GPT-5.5 returns empty strings. Claude Opus enumerates 143 symbols and still gets the wrong answer. GCF is the wire format built for the machine reading it. 23 comprehension runs. 10 models. 3 providers. GCF wins 22, ties 1, loses 0.">
+  <meta name="keywords" content="better than json, json alternative, llm wire format, ai agents, gcf, graph compact format, token efficiency, mcp, model context protocol">
+  <link rel="canonical" href="https://betterthanjson.com">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+      background: #0a0a0a;
+      color: #e8e8e8;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+    h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+    h2 { font-size: 1.3rem; font-weight: 600; margin: 2.5rem 0 1rem; color: #fff; border-bottom: 1px solid #222; padding-bottom: 0.5rem; }
+    p { margin-bottom: 1rem; color: #ccc; }
+    .subtitle { font-size: 1.1rem; color: #888; margin-bottom: 2rem; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.9rem; }
+    th { text-align: left; padding: 0.5rem 0.75rem; background: #111; color: #aaa; font-weight: 600; border-bottom: 1px solid #333; }
+    td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #1a1a1a; }
+    tr:last-child td { border-bottom: none; }
+    .win { color: #4ade80; font-weight: 600; }
+    .lose { color: #f87171; }
+    .stat { font-size: 2rem; font-weight: 700; color: #4ade80; }
+    .stat-label { font-size: 0.85rem; color: #666; margin-top: 0.25rem; }
+    .stats-row { display: flex; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
+    .stat-block { flex: 1; min-width: 140px; }
+    code { font-family: monospace; background: #111; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.85rem; color: #f97316; }
+    pre { background: #111; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 1rem 0; font-size: 0.85rem; color: #e8e8e8; border: 1px solid #222; }
+    .links { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #222; }
+    .links a { display: inline-block; margin: 0.25rem 0.5rem 0.25rem 0; color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
+    .links a:hover { text-decoration: underline; }
+    .verdict { background: #0f1f0f; border: 1px solid #1a3a1a; border-radius: 6px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .verdict p { color: #86efac; margin: 0; }
+    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #1a1a1a; font-size: 0.8rem; color: #555; }
+  </style>
+</head>
+<body>
+
+  <h1>GCF is Better Than JSON</h1>
+  <p class="subtitle">For AI agents. For LLMs. For anything reading at scale.</p>
+
+  <p>
+    JSON breaks at 500 records. GPT-5.5 returns empty strings. Claude Opus miscounts 500 symbols as 356, spends 143 lines enumerating them manually, and still gets the wrong answer. The format designed for human readability is incomprehensible to the systems actually reading it.
+  </p>
+
+  <p>
+    GCF (Graph Compact Format) was built for the machine. 23 comprehension runs. 10 models. 3 providers. GCF wins 22, ties 1, loses 0. On every model. From every provider. No exceptions.
+  </p>
+
+  <div class="stats-row">
+    <div class="stat-block">
+      <div class="stat">79%</div>
+      <div class="stat-label">fewer tokens than JSON</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat">22/23</div>
+      <div class="stat-label">comprehension runs won</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat">10</div>
+      <div class="stat-label">models tested, 3 providers</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat">92.7%</div>
+      <div class="stat-label">token savings by call 5</div>
+    </div>
+  </div>
+
+  <h2>How JSON Dies at Scale</h2>
+
+  <p>JSON repeats <code>"qualified_name":</code>, <code>"kind":</code>, <code>"score":</code>, <code>"provenance":</code>, <code>"distance":</code> on every single record. At 500 symbols, that's 2,500 structurally identical tokens carrying zero semantic content.</p>
+
+  <ul style="margin: 1rem 0 1rem 1.5rem; color: #ccc;">
+    <li style="margin-bottom:0.5rem"><strong style="color:#fff">GPT-5.5 returns empty strings.</strong> Not wrong answers. Nothing. The model receives 53,341 tokens of repeated field names and cannot produce any response.</li>
+    <li style="margin-bottom:0.5rem"><strong style="color:#fff">Claude Opus miscounts 500 as 356.</strong> Then enumerates manually. 143 lines of chain-of-thought. Still wrong.</li>
+    <li><strong style="color:#fff">Every model fails distance filtering.</strong> Correct answer: 166. Opus answers 200. GPT-5.4 answers 300-404. GPT-5.4-mini answers 300.</li>
+  </ul>
+
+  <p>JSON median error magnitude: <strong style="color:#f87171">56</strong>. GCF median error magnitude: <strong style="color:#4ade80">4</strong>.</p>
+
+  <h2>Comprehension: 23 Runs, 10 Models, 0 Losses</h2>
+
+  <table>
+    <thead>
+      <tr><th>Model</th><th>GCF avg</th><th>JSON avg</th><th>GCF margin</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Claude Sonnet 4.6</td><td class="win">100%</td><td class="lose">53.8%</td><td class="win">+46.2pp</td></tr>
+      <tr><td>Gemini 3.5 Flash</td><td class="win">100%</td><td class="lose">46.2%</td><td class="win">+53.8pp</td></tr>
+      <tr><td>Gemini 2.5 Pro</td><td class="win">100%</td><td class="lose">58.3%</td><td class="win">+41.7pp</td></tr>
+      <tr><td>Gemini 3.1 Pro</td><td class="win">100%</td><td class="lose">46.2%</td><td class="win">+53.8pp</td></tr>
+      <tr><td>Claude Opus 4.6</td><td class="win">96.2%</td><td class="lose">73.1%</td><td class="win">+23.1pp</td></tr>
+      <tr><td>Claude Haiku 4.5</td><td class="win">96.2%</td><td class="lose">57.7%</td><td class="win">+38.5pp</td></tr>
+      <tr><td>GPT-5.5</td><td class="win">84.1%</td><td class="lose">45.8%</td><td class="win">+38.3pp</td></tr>
+      <tr><td>Gemini 2.5 Flash</td><td class="win">80.6%</td><td class="lose">57.0%</td><td class="win">+23.6pp</td></tr>
+      <tr><td>GPT-5.4</td><td class="win">76.4%</td><td class="lose">44.1%</td><td class="win">+32.3pp</td></tr>
+      <tr><td>GPT-5.4-mini</td><td class="win">71.8%</td><td class="lose">54.2%</td><td class="win">+17.6pp</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Token Cost: Same Payload</h2>
+
+  <table>
+    <thead>
+      <tr><th>Format</th><th>Tokens</th><th>vs JSON</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>GCF</td><td class="win">11,090</td><td class="win">79% fewer</td></tr>
+      <tr><td>JSON</td><td class="lose">53,341</td><td>baseline</td></tr>
+    </tbody>
+  </table>
+
+  <p>GCF is the cheapest format. It's also the most accurate. Usually you trade cost for quality. Not here.</p>
+
+  <h2>Why GCF Works Where JSON Fails</h2>
+
+  <p>GCF answers are structural, not computational. Instead of 500 JSON objects to parse and filter, GCF uses section headers that encode groupings directly:</p>
+
+  <pre>## targets [166]
+@0 fn pkg.HandleRequest 0.95 lsp_resolved
+@1 type pkg.ProcessResponse 0.74 ast_inferred
+## related [167]
+@2 method pkg.ValidateConfig 0.52 structural</pre>
+
+  <p>"How many targets?" Read the header: <code>[166]</code>. Done. No column scanning. No attention decay across 500 flat rows. The answer is structural, not computed.</p>
+
+  <h2>Session Statefulness</h2>
+
+  <p>GCF is the only format with cross-call deduplication. Symbols seen in prior tool calls are referenced by ID instead of re-serialized. JSON re-serializes everything on every call.</p>
+
+  <p>By the 5th tool call in a session: <strong style="color:#4ade80">92.7% token savings</strong> over JSON. The per-call advantage compounds across every interaction.</p>
+
+  <div class="verdict">
+    <p>GCF was designed for the machine reading it. JSON was designed for humans. The consumer of your API responses is not a human.</p>
+  </div>
+
+  <div class="links">
+    <h2 style="border:none; margin-top:0; padding-top:0;">Resources</h2>
+    <a href="https://gcformat.com">gcformat.com</a>
+    <a href="https://blackwell-systems.github.io/gcf/playground.html">GCF Playground</a>
+    <a href="https://dayna.blackwell.systems/posts/llm-wire-format-comprehension-benchmark/">Full Benchmark</a>
+    <a href="https://github.com/blackwell-systems/gcf">GCF Spec</a>
+    <a href="https://github.com/blackwell-systems/gcf-go">GCF Go</a>
+    <a href="https://github.com/blackwell-systems/gcf-python">GCF Python</a>
+    <a href="https://github.com/blackwell-systems/gcf-typescript">GCF TypeScript</a>
+    <a href="https://github.com/blackwell-systems/gcf-proxy">GCF Proxy (MCP)</a>
+    <a href="https://github.com/blackwell-systems/knowing">knowing</a>
+  </div>
+
+  <footer>
+    &copy; 2026 Blackwell Systems. GCF is open source.
+  </footer>
+
+</body>
+</html>
