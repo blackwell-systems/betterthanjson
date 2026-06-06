@@ -42,8 +42,11 @@
     .verdict { background: #0f1f0f; border: 1px solid #1a3a1a; border-radius: 6px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
     .verdict p { color: #86efac; margin: 0; }
     .links { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #222; }
-    .links a { display: inline-block; margin: 0.25rem 0.5rem 0.25rem 0; color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
+    .links a { display: block; color: #60a5fa; text-decoration: none; font-size: 0.9rem; margin: 0.3rem 0; }
     .links a:hover { text-decoration: underline; }
+    .links-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
+    .links-col h3 { font-size: 0.85rem; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    @media (max-width: 600px) { .links-grid { grid-template-columns: 1fr; } }
     .divider { border: none; border-top: 1px solid #1a1a1a; margin: 2.5rem 0; }
     footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #1a1a1a; font-size: 0.8rem; color: #555; }
   </style>
@@ -404,16 +407,30 @@ cd toon && git checkout gcf-comparison && cd benchmarks && pnpm install && pnpm 
 
   <div class="links">
     <h2 style="border:none; margin-top:0; padding-top:0;">Resources</h2>
-    <a href="https://gcformat.com">gcformat.com</a>
-    <a href="https://blackwell-systems.github.io/gcf/playground.html">GCF Playground</a>
-    <a href="https://dayna.blackwell.systems/posts/llm-wire-format-comprehension-benchmark/">Full Benchmark Post</a>
-    <a href="https://github.com/blackwell-systems/gcf">GCF Spec</a>
-    <a href="https://github.com/blackwell-systems/gcf-go">GCF Go (comprehension eval)</a>
-    <a href="https://github.com/blackwell-systems/gcf-python">GCF Python</a>
-    <a href="https://github.com/blackwell-systems/gcf-typescript">GCF TypeScript</a>
-    <a href="https://github.com/blackwell-systems/gcf-proxy">GCF Proxy (drop-in MCP proxy)</a>
-    <a href="https://github.com/blackwell-systems/toon-benchmark">TOON benchmark fork</a>
-    <a href="https://github.com/blackwell-systems/knowing">knowing (code intelligence engine GCF was extracted from)</a>
+    <div class="links-grid">
+      <div class="links-col">
+        <h3>Get Started</h3>
+        <a href="https://gcformat.com">Documentation</a>
+        <a href="https://gcformat.com/playground.html">Playground</a>
+        <a href="https://gcformat.com/guide/benchmarks.html">Benchmarks</a>
+        <a href="https://gcformat.com/guide/vs-toon.html">GCF vs TOON</a>
+      </div>
+      <div class="links-col">
+        <h3>Libraries</h3>
+        <a href="https://github.com/blackwell-systems/gcf-go">Go</a>
+        <a href="https://github.com/blackwell-systems/gcf-typescript">TypeScript</a>
+        <a href="https://github.com/blackwell-systems/gcf-python">Python</a>
+        <a href="https://github.com/blackwell-systems/gcf-rust">Rust</a>
+        <a href="https://github.com/blackwell-systems/gcf-swift">Swift</a>
+        <a href="https://github.com/blackwell-systems/gcf-kotlin">Kotlin</a>
+      </div>
+      <div class="links-col">
+        <h3>Data</h3>
+        <a href="https://github.com/blackwell-systems/gcf">Spec + eval logs</a>
+        <a href="https://github.com/blackwell-systems/gcf-go/tree/main/eval">Eval source code</a>
+        <a href="https://github.com/blackwell-systems/gcf-proxy">MCP Proxy</a>
+      </div>
+    </div>
   </div>
 
   <footer>
