@@ -352,6 +352,17 @@ So: 143.</pre>
 
   <hr class="divider">
 
+  <h2>"But What About My JSON Schemas?"</h2>
+
+  <p>GCF round-trips losslessly to JSON. <code>decode(encode(value)) == value</code> for every JSON value. Your schemas validate the decoded output, unchanged:</p>
+
+  <pre>data = decode_generic(gcf_response)         # GCF -> native object
+jsonschema.validate(data, existing_schema)   # your schema, no changes</pre>
+
+  <p>OpenAI structured outputs, Anthropic tool definitions, LangChain, CrewAI: all work. The schema validates data structure, not wire encoding. GCF is invisible to the validator. <a href="https://gcformat.com/guide/schema-validation" style="color:#60a5fa">Full guide</a>.</p>
+
+  <hr class="divider">
+
   <h2>TOON's Own Benchmark: GCF Wins All 6 Datasets</h2>
 
   <p>We forked TOON's benchmark repository, added a GCF formatter, and ran their datasets with their tokenizer and their methodology.</p>
@@ -389,27 +400,6 @@ So: 143.</pre>
   <div class="verdict">
     <p>JSON was designed for humans to read. TOON was designed as a compromise between humans and machines. GCF was designed for the machine. It's a proven lossless JSON encoding: <code>decode(encode(value)) == value</code> for every JSON value, verified across 200M+ random inputs and 7.9M fuzz executions. The consumer of your API responses is not a human. Optimize for the reader that matters.</p>
   </div>
-
-  <hr class="divider">
-
-  <h2>JSON Schema Works Unchanged</h2>
-
-  <p>The #1 concern when replacing JSON: "What about my schemas?" GCF round-trips losslessly to JSON. Validate on the decoded side using the same JSON Schema tooling you already have.</p>
-
-  <pre>from gcf import decode_generic
-import jsonschema
-
-# Tool returns GCF (79% fewer tokens on the wire)
-data = decode_generic(gcf_response)
-
-# Validate with your existing JSON Schema (no changes needed)
-jsonschema.validate(data, your_existing_schema)</pre>
-
-  <p>This works with OpenAI structured outputs, Anthropic tool definitions, LangChain, CrewAI, and every framework that uses JSON Schema. The schema validates the data structure, not the wire encoding. GCF is transparent to the validator.</p>
-
-  <p><strong>Example: AI travel agent.</strong> The agent calls a <code>search_flights</code> tool that returns results as GCF (3 flights, 6 fields each = 79% fewer tokens than JSON). The framework decodes and validates against the <code>FlightSearchResult</code> schema. The agent selects a flight and calls <code>book_flight</code> with structured arguments validated against <code>BookFlightRequest</code>. Every step has a schema. GCF makes the wire transfer cheap; JSON Schema makes it correct.</p>
-
-  <p>Three validation patterns: <strong>framework-level</strong> (MCP tool definitions, OpenAI function calling), <strong>proxy-level</strong> (<code>gcf-proxy --validate-dir ./schemas/</code>), or <strong>application-level</strong> (decode then validate in your code). <a href="https://gcformat.com/guide/schema-validation" style="color:#60a5fa">Full guide with code examples</a>.</p>
 
   <hr class="divider">
 
