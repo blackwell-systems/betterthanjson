@@ -70,7 +70,7 @@
 
   <p>TOON is worse than it looks. Its official decoder rejects LLM-generated output on 7 of 9 models tested. Claude Opus scores 0/5 on TOON generation. GPT-5.4: 0/5. Gemini 3.1 Pro: 0/5. The error is always the same: <code>toon: cannot assign string to int</code>. The model writes "target" in the distance column because that's what it was told. TOON expects <code>0</code>. The format's flat tabular design forces an encoding step that no model performs unprompted. This is a structural design flaw, not a training problem.</p>
 
-  <p>GCF wins both dimensions on every model tested. Every frontier model achieves 100% comprehension on standard workloads (Claude Opus, Sonnet, Haiku, GPT-5.5, Gemini 2.5 Flash, 3.5 Flash). On structurally complex code graphs, GCF scores 91.2% where JSON drops to 53.4%. Every frontier model produces valid GCF at 5/5 from a 3-line primer. No model has ever been trained on GCF. The format didn't exist until we built it, and every model speaks it natively because the structure aligns with how LLMs already process information.</p>
+  <p>GCF wins both dimensions on every model tested. Every frontier model achieves 100% comprehension on standard workloads (Claude Opus, Sonnet, Haiku, GPT-5.5, Gemini 2.5 Flash, 3.5 Flash). On structurally complex code graphs, GCF scores 91.2% where JSON drops to 54.1%. Every frontier model produces valid GCF at 5/5 from a 3-line primer. No model has ever been trained on GCF. The format didn't exist until we built it, and every model speaks it natively because the structure aligns with how LLMs already process information.</p>
 
   <div class="stats-row">
     <div class="stat-block">
@@ -110,7 +110,7 @@
       <tr><td>GPT-5.5</td><td>5</td><td class="win">84.1%</td><td>67.7%</td><td class="lose">45.8%</td><td class="win">+16.4 vs TOON</td></tr>
       <tr><td>GPT-5.4</td><td>4</td><td class="win">78.0%</td><td>56.0%</td><td class="lose">44.1%</td><td class="win">+22.0 vs TOON</td></tr>
       <tr><td>GPT-5.4-mini</td><td>2</td><td class="win">71.8%</td><td>64.1%</td><td class="lose">54.2%</td><td class="win">+7.7 vs TOON</td></tr>
-      <tr><td>Gemini 2.5 Flash</td><td>3</td><td class="win">80.6%</td><td>54.6%</td><td class="lose">57.0%</td><td class="win">+26.0 vs TOON</td></tr>
+      <tr><td>Gemini 2.5 Flash</td><td>3</td><td class="win">80.6%</td><td>54.1%</td><td class="lose">57.0%</td><td class="win">+26.0 vs TOON</td></tr>
       <tr><td>Gemini 2.5 Pro</td><td>1</td><td class="win">100%</td><td>76.9%</td><td class="lose">58.3%</td><td class="win">+23.1 vs TOON</td></tr>
       <tr><td>Gemini 3.1 Pro</td><td>1</td><td class="win">100%</td><td>76.9%</td><td class="lose">46.2%</td><td class="win">+23.1 vs TOON</td></tr>
       <tr><td>Gemini 3.5 Flash</td><td>1</td><td class="win">100%</td><td>61.5%</td><td class="lose">46.2%</td><td class="win">+38.5 vs TOON</td></tr>

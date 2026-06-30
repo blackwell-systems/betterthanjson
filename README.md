@@ -4,7 +4,7 @@
 
 ## Why JSON fails at scale
 
-JSON was designed in 2001 for browser-to-server communication. When an LLM receives 500 records as JSON, it gets 53,341 tokens of repeated field names (`"qualified_name":`, `"kind":`, `"score":` on every record). At this scale, GPT-5.5 returns empty strings. Claude Opus spends 143 lines manually enumerating symbols and still gets the wrong answer. JSON averages 53.4% comprehension accuracy across 10 models.
+JSON was designed in 2001 for browser-to-server communication. When an LLM receives 500 records as JSON, it gets 53,341 tokens of repeated field names (`"qualified_name":`, `"kind":`, `"score":` on every record). At this scale, GPT-5.5 returns empty strings. Claude Opus spends 143 lines manually enumerating symbols and still gets the wrong answer. JSON averages 54.1% comprehension accuracy across 10 models.
 
 ## What GCF does differently
 
@@ -34,7 +34,7 @@ GCF declares field names once in a header. Rows are positional values. Section h
 | Gemini 2.5 Pro | **100%** | 76.9% | 58.3% |
 | Gemini 3.1 Pro | **100%** | 76.9% | 46.2% |
 | Gemini 3.5 Flash | **100%** | 61.5% | 46.2% |
-| Gemini 2.5 Flash | **80.6%** | 54.6% | 57.0% |
+| Gemini 2.5 Flash | **80.6%** | 54.1% | 57.0% |
 
 GCF > TOON > JSON on every model from every provider. No exceptions.
 
